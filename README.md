@@ -2,6 +2,8 @@
 
 Student timetable and organized activities portal for Symbiosis Skills and Professional University, Kiwale, Pune.
 
+**Live website: https://symbiosis-timetable.vercel.app** — see [LIVE-DEPLOYMENT.md](LIVE-DEPLOYMENT.md) for the production verification record.
+
 **Deploy it:** follow [DEPLOYMENT.md](DEPLOYMENT.md). It includes database creation, importing all existing schedules, Vercel settings and a two-device verification checklist.
 
 ## Features

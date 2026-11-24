@@ -1,0 +1,19 @@
+{
+  "productionUrl": "https://symbiosis-timetable.vercel.app",
+  "revision": 11,
+  "sessionCount": 694,
+  "sourcePdfBackup": "https://tmbwyyhmgbjrchoayrmy.supabase.co/storage/v1/object/public/timetables/fbd19626-0f4d-4a56-993e-80a166b43244.pdf",
+  "checks": [
+    "shared reads",
+    "password rejection",
+    "secure login",
+    "authenticated database save",
+    "cross-client realtime notification",
+    "stale save rejection",
+    "PDF upload/download checksum",
+    "activity validation",
+    "logout"
+  ],
+  "verifiedAt": "2026-11-24T06:25:39.853Z",
+  "browserVisualCheck": false
+}

@@ -23,6 +23,8 @@ The data was imported without overwriting any pre-existing portal row. Setup was
 
 ## Still required for the live website
 
+**Deployment update:** Vercel is now configured and deployed at https://symbiosis-timetable.vercel.app . API, authorization, storage and cross-client live notifications passed production checks. See LIVE-DEPLOYMENT.md. The steps below are retained as a setup reference; they have been completed for the current deployment.
+
 Supabase's database is ready. Vercel environment variables and deployment are still required. This is not yet a verified live website deployment.
 
 1. Import `lakshyaa29/Symbiosis_TimeTable` at https://vercel.com/new .

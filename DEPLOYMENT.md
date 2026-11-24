@@ -4,6 +4,8 @@ This repository includes the website, Node serverless backend, database creation
 
 **Update, 24 November 2026:** Supabase project `tmbwyyhmgbjrchoayrmy` is now configured and verified. For that project, skip steps 1 and 2 and continue at step 3. See SUPABASE-SETUP-STATUS.md for the verification record. Steps 1 and 2 below are retained for creating another project.
 
+**Live deployment:** https://symbiosis-timetable.vercel.app is now configured and verified. All setup steps below are complete for this project. See LIVE-DEPLOYMENT.md; use these instructions only when recreating or modifying the deployment.
+
 ## 1. Create a free Supabase project
 
 1. Open https://supabase.com/dashboard and sign up/sign in.
