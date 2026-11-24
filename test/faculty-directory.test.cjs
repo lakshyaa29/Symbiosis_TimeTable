@@ -54,3 +54,27 @@ test('program scope includes published school membership and actual cross-school
   const noSchedule=records.find(p=>p.official&&!p.assignments.length);
   assert.equal(F.sessionsFor(noSchedule).length,0);
 });
+
+test('faculty schedule filters isolate semester and section while including shared classes for a batch',()=>{
+  const person=F.data.people[0];
+  const make=(id,extra={})=>({id,department:'BTECH_CYBER',semester:'1',className:'F',batch:'',facultyMembers:[person.name],...extra});
+  const entries=[make('shared'),make('f1',{batch:'F1'}),make('f2',{batch:'F2'}),make('section-a',{className:'A',batch:'A1'}),make('next-semester',{semester:'2',batch:'F1'}),make('other-program',{department:'BTECH_AIML',batch:'F1'})];
+  const record=F.build(entries).find(r=>r.id===person.id);
+  const filters={semester:'1',section:'F',batch:'F1'};
+  assert.deepEqual(F.sessionsFor(record,'BTECH_CYBER',filters).map(e=>e.id),['shared','f1']);
+  assert.deepEqual(F.assignmentsFor(record,'BTECH_CYBER',filters).map(a=>a.entry.id),['shared','f1']);
+  assert.deepEqual(F.sessionsFor(record,'BTECH_CYBER',{...filters,batch:'all'}).map(e=>e.id),['shared','f1','f2']);
+  assert.equal(F.sessionsFor(record).length,6);
+  assert.deepEqual(F.sessionsFor(record,'BTECH_CYBER',{section:'B'}),[]);
+});
+
+test('new uploaded section sessions join a teacher schedule without modifying existing allocations',()=>{
+  const person=F.data.people[0],base={id:'old-a',department:'BTECH_CYBER',semester:'1',className:'A',batch:'',facultyMembers:[person.name]};
+  const before=JSON.stringify(base),uploaded={...base,id:'uploaded-f',className:'F',batch:'F2'};
+  const first=F.build([base]).find(r=>r.id===person.id);
+  assert.equal(F.sessionsFor(first,'BTECH_CYBER',{section:'F'}).length,0);
+  const updated=F.build([base,uploaded]).find(r=>r.id===person.id);
+  assert.deepEqual(F.sessionsFor(updated,'BTECH_CYBER',{section:'F'}),[uploaded]);
+  assert.deepEqual(F.sessionsFor(updated,'BTECH_CYBER',{section:'A'}),[base]);
+  assert.equal(JSON.stringify(base),before);
+});

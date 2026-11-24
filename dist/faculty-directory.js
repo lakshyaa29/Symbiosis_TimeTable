@@ -23,8 +23,9 @@
     }
     return [...records.values()].sort((a,b)=>Number(b.official)-Number(a.official)||Number(!!b.assignments.length)-Number(!!a.assignments.length)||a.name.localeCompare(b.name));
   }
-  const assignmentsFor=(record,program='all')=>record.assignments.filter(a=>program==='all'||a.entry.department===program);
-  const sessionsFor=(record,program='all')=>[...new Map(assignmentsFor(record,program).map(a=>[a.entry.id,a.entry])).values()];
+  const matchesFilters=(entry,filters={})=>(!filters.semester||filters.semester==='all'||String(entry.semester)===String(filters.semester))&&(!filters.section||filters.section==='all'||entry.className===filters.section)&&(!filters.batch||filters.batch==='all'||!entry.batch||entry.batch===filters.batch);
+  const assignmentsFor=(record,program='all',filters={})=>record.assignments.filter(a=>(program==='all'||a.entry.department===program)&&matchesFilters(a.entry,filters));
+  const sessionsFor=(record,program='all',filters={})=>[...new Map(assignmentsFor(record,program,filters).map(a=>[a.entry.id,a.entry])).values()];
   const inProgram=(record,program)=>program==='all'||record.programs.includes(program)||record.assignments.some(a=>a.entry.department===program);
-  return {data,normalize,resolve,build,assignmentsFor,sessionsFor,inProgram};
+  return {data,normalize,resolve,build,assignmentsFor,sessionsFor,inProgram,matchesFilters};
 });
