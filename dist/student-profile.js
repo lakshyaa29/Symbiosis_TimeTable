@@ -15,7 +15,8 @@
     const rule=BATCH_RULES.find(r=>r.program===program&&roll>=r.start&&roll<=r.end);
     return rule?{program:rule.program,semester:rule.semester,className:rule.className,batch:rule.batch,sourcePage:rule.sourcePage}:null;
   }
-  function classesFor(program,semester,entries=core.DATA.sessions){return [...new Set(entries.filter(e=>e.department===program&&e.semester===String(semester)).map(e=>e.className))].sort();}
+  const CSIT_SECTIONS=Object.freeze(['A','B','C','D','E','F']);
+  function classesFor(program,semester,entries=core.DATA.sessions){const defaults=['BTECH_CYBER','BTECH_AIML'].includes(program)?CSIT_SECTIONS:[];return [...new Set([...defaults,...entries.filter(e=>e.department===program&&e.semester===String(semester)).map(e=>e.className)])].sort();}
   function batchesFor(program,semester,className,entries=core.DATA.sessions){return [...new Set(entries.filter(e=>e.department===program&&e.semester===String(semester)&&e.className===className).map(e=>e.batch).filter(Boolean))].sort();}
   function validateProfile(input,entries=core.DATA.sessions){
     const errors=[];
@@ -40,6 +41,6 @@
     try{return createProfile(value,entries);}catch{return null;}
   }
   function sessionsForProfile(profile,entries=core.DATA.sessions){return entries.filter(e=>e.department===profile.program&&e.semester===profile.semester&&e.className===profile.className&&(!e.batch||!profile.batch||e.batch===profile.batch));}
-  const api={STORAGE_KEY,BATCH_RULES,inferPlacement,classesFor,batchesFor,validateProfile,createProfile,validateStoredProfile,sessionsForProfile};
+  const api={STORAGE_KEY,BATCH_RULES,CSIT_SECTIONS,inferPlacement,classesFor,batchesFor,validateProfile,createProfile,validateStoredProfile,sessionsForProfile};
   if(typeof module!=='undefined'&&module.exports)module.exports=api;else root.StudentProfiles=api;
 })(typeof globalThis!=='undefined'?globalThis:this);

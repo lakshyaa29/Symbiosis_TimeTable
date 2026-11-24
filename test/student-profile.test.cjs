@@ -41,6 +41,20 @@ test('profile validation preserves roll identifiers and rejects unusable values'
   assert.equal(p.createProfile({...base,rollNumber:'  00023  '}).rollNumber,'00023');assert.ok(p.validateProfile({...base,rollNumber:''}).length);assert.ok(p.validateProfile({...base,rollNumber:'<script>'}).length);assert.ok(p.validateProfile({...base,semester:'0'}).length);assert.ok(p.validateProfile({...base,className:''}).length);
 });
 test('cohort and batch options follow uploaded or locally added schedules',()=>{
-  assert.deepEqual(p.classesFor('BTECH_AIML','1'),['D']);assert.deepEqual(p.batchesFor('BTECH_AIML','1','D'),['D1','D2']);
-  const added=[...c.seed(),{department:'BTECH_AIML',semester:'3',className:'B',batch:'B1'}];assert.deepEqual(p.classesFor('BTECH_AIML','3',added),['B']);assert.deepEqual(p.batchesFor('BTECH_AIML','3','B',added),['B1']);
+  assert.deepEqual(p.classesFor('BTECH_AIML','1'),['A','B','C','D','E','F']);assert.deepEqual(p.batchesFor('BTECH_AIML','1','D'),['D1','D2']);
+  const added=[...c.seed(),{department:'BTECH_AIML',semester:'3',className:'B',batch:'B1'}];assert.deepEqual(p.classesFor('BTECH_AIML','3',added),['A','B','C','D','E','F']);assert.deepEqual(p.batchesFor('BTECH_AIML','3','B',added),['B1']);
+});
+
+test('CSIT sections are selectable before upload without copying another section timetable',()=>{
+  for(const program of ['BTECH_CYBER','BTECH_AIML'])assert.deepEqual(p.classesFor(program,'2',[]),['A','B','C','D','E','F']);
+  assert.deepEqual(p.classesFor('BTECH_MECH','2',[]),[]);
+  const entries=[{department:'BTECH_CYBER',semester:'1',className:'A',batch:'A1'},
+    {department:'BTECH_CYBER',semester:'1',className:'F',batch:''},
+    {department:'BTECH_CYBER',semester:'1',className:'F',batch:'F1'},
+    {department:'BTECH_CYBER',semester:'1',className:'F',batch:'F2'},
+    {department:'BTECH_CYBER',semester:'2',className:'F',batch:'F1'},
+    {department:'BTECH_AIML',semester:'1',className:'F',batch:'F1'}];
+  const profile=p.createProfile({program:'BTECH_CYBER',rollNumber:'F-23',semester:'1',className:'F',batch:'F1'},entries);
+  assert.deepEqual(p.sessionsForProfile(profile,entries),[entries[1],entries[2]]);
+  assert.deepEqual(p.batchesFor('BTECH_CYBER','1','F',entries),['F1','F2']);
 });
