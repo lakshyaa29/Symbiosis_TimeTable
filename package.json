@@ -1,0 +1,15 @@
+{
+  "name": "sspu-timetable-portal",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Local college timetable portal for SSPU, Kiwale, Pune",
+  "scripts": {
+    "start": "node server.cjs",
+    "test": "node --test test/*.test.cjs",
+    "set-activity-password": "node tools/set-activity-password.cjs",
+    "build": "node tools/check-deployment.cjs"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

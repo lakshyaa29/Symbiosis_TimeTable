@@ -1,0 +1,11 @@
+data/
+.local/
+node_modules/
+.env
+.env.*
+!.env.example
+.vercel/
+.openai/
+*.log
+.DS_Store
+Thumbs.db
