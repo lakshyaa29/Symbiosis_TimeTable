@@ -43,6 +43,8 @@ create table if not exists public.portal_login_attempts (
 );
 alter table public.portal_login_attempts enable row level security;
 revoke all on public.portal_login_attempts from anon, authenticated;
+drop policy if exists "No client access" on public.portal_login_attempts;
+create policy "No client access" on public.portal_login_attempts as restrictive for all to anon, authenticated using(false) with check(false);
 create or replace function public.consume_portal_login(attempt_key text) returns boolean
 language plpgsql security definer set search_path='' as $$
 declare attempts integer;

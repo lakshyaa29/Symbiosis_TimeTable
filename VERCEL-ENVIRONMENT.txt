@@ -1,0 +1,14 @@
+VERCEL ENVIRONMENT VALUES FOR THIS PROJECT
+
+SUPABASE_URL=https://tmbwyyhmgbjrchoayrmy.supabase.co
+SUPABASE_PUBLISHABLE_KEY=sb_publishable_cnh-4yX_zRg1mUEHf5SxBA_a1HvJTPc
+
+The two values above are public client configuration, not server secrets.
+
+Set these three privately in Vercel; do not commit them:
+SUPABASE_SECRET_KEY = copy the sb_secret_ key from Supabase Settings > API Keys
+ACTIVITY_PASSWORD = your existing organizer/administrator password
+SESSION_SECRET = generate a random secret of at least 32 characters
+
+Database and Realtime setup are already complete for this project.
+See SUPABASE-SETUP-STATUS.md and DEPLOYMENT.md.

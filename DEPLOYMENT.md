@@ -1,6 +1,8 @@
 # Deploy Symbiosis Timetable: Supabase + Vercel
 
-This repository includes the website, Node serverless backend, database creation script, all 694 original timetable entries, live update subscriptions, PDF storage and password-protected shared writes. No database has been created in your account yet. Follow these steps in order.
+This repository includes the website, Node serverless backend, database creation script, all 694 original timetable entries, live update subscriptions, PDF storage and password-protected shared writes. Follow the status update below before using the setup steps.
+
+**Update, 24 November 2026:** Supabase project `tmbwyyhmgbjrchoayrmy` is now configured and verified. For that project, skip steps 1 and 2 and continue at step 3. See SUPABASE-SETUP-STATUS.md for the verification record. Steps 1 and 2 below are retained for creating another project.
 
 ## 1. Create a free Supabase project
 
@@ -115,6 +117,6 @@ Without `.env` or Supabase variables, `npm start` keeps the previous browser-loc
 
 Use Vercel Hobby only within its personal/non-commercial terms. Supabase Free has finite storage, bandwidth, concurrent connections and message quotas, and may pause after a week of inactivity. Review https://supabase.com/pricing and https://vercel.com/docs/plans/hobby before expanding to an official university service. Keep manual database backups; do not rely on the free plan for automatic backups.
 
-The supplied code has local unit/integration tests using an emulated database transport, and a source/build check. A live Supabase project, Vercel deployment and two-device browser verification still require the account setup above. They must not be described as verified until completed.
+The supplied code has local unit/integration tests using an emulated database transport, and a source/build check. Supabase project tmbwyyhmgbjrchoayrmy has now passed live database, permissions, REST and WebSocket signal checks. Vercel deployment and two-device website verification remain pending; see SUPABASE-SETUP-STATUS.md.
 
 Official references: https://supabase.com/docs/guides/realtime/postgres-changes , https://supabase.com/docs/guides/database/postgres/row-level-security , https://supabase.com/docs/guides/getting-started/api-keys , https://vercel.com/docs/functions/quickstart .
